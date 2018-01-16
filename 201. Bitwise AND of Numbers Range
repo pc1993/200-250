@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int res=INT_MAX;
+        while((res&m)!=(res&n))
+        {
+            res=res<<1;
+        }
+        return res&m;
+    }
+};
+直接平移m和n，每次向右移一位，直到m和n相等，记录下所有平移的次数i，然后再把m左移i位即为最终结果
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        int i = 0;
+        while (m != n) {
+            m >>= 1;
+            n >>= 1;
+            ++i;
+        }
+        return (m << i);
+    }
+};
+通过递归来做的，如果n大于m，那么就对m和n分别除以2，并且调用递归函数，对结果再乘以2
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        return (n > m) ? (rangeBitwiseAnd(m / 2, n / 2) << 1) : m;
+    }
+};
+
+如果m小于n就进行循环，n与上n-1,相当于去掉最低位的1
+class Solution {
+public:
+    int rangeBitwiseAnd(int m, int n) {
+        while (m < n) n &= (n - 1);
+        return n;
+    }
+};
