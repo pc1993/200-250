@@ -1,0 +1,28 @@
+还有一种解法，建立一个map，如果数字重复出现返回0，=1就返回1
+class Solution {
+public:
+    bool isHappy(int n) {
+        int slow=n;
+        int fast=n;
+        do
+        {
+            slow=findnum(slow);
+            fast=findnum(fast);
+            fast=findnum(fast);
+            if(fast==1)
+                return true;
+        }while(fast!=slow);
+        return false;
+    }
+    int findnum(int num)
+    {
+        int sum=0;
+        while(num!=0)
+        {
+            int tmp=num%10;
+            sum+=tmp*tmp;
+            num/=10;
+        }
+        return sum;
+    }
+};
