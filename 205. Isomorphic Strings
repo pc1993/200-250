@@ -1,0 +1,29 @@
+如果只用一个map，那么aa和ab这种情况就不能判断
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int n=s.size();
+        if(n!=t.size())
+            return false;
+        unordered_map<char,char> mp1;
+        unordered_map<char,char> mp2;
+        mp1[s[0]]=t[0];
+        mp2[t[0]]=s[0];
+        for(int i=1;i<n;++i)
+        {
+            if(mp1.find(s[i])!=mp1.end())
+            {
+                if(mp1[s[i]]!=t[i])
+                    return false;
+            }
+            if(mp2.find(t[i])!=mp2.end())
+            {
+                if(mp2[t[i]]!=s[i])
+                    return false;
+            }
+            mp1[s[i]]=t[i];
+            mp2[t[i]]=s[i];
+        }
+        return true;
+    }
+};
