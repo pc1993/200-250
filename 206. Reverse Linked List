@@ -56,7 +56,7 @@ public:
     ListNode* reverseList(ListNode* head) {
         if (!head || !(head -> next)) return head;
         ListNode* node = reverseList(head -> next);
-        head -> next -> next = head;
+        head -> next -> next = head;         //他的下一个指向他本身，他指向NULL
         head -> next = NULL;
         return node; 
     }
