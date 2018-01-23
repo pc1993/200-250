@@ -1,3 +1,5 @@
+拓扑结构的思想
+https://discuss.leetcode.com/topic/17273/18-22-lines-c-bfs-dfs-solutions/2
 class Solution {
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
