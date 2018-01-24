@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<unordered_set<int>> graph=make_graph(numCourses,prerequisites);
+        vector<int> degrees=computu_indegree(graph);
+        queue<int> course;
+        for(int i=0;i<numCourses;++i)
+        {
+            if(degrees[i]==0)
+                course.push(i);
+        }
+        vector<int> res;
+        for(int i=0;i<numCourses;++i)
+        {
+            if(course.empty())
+                return {};
+            int courses=course.front();
+            course.pop();
+            res.push_back(courses);
+            for(int neigh:graph[courses])
+            {
+                if(degrees[neigh]==1)
+                {
+                    course.push(neigh);
+                }
+                degrees[neigh]--;
+            }
+        }
+        return res;
+    }
+private:
+    vector<unordered_set<int>> make_graph(int numCourses, vector<pair<int, int>>& prerequisites)
+    {
+        vector<unordered_set<int>> graph(numCourses);
+        for(auto math:prerequisites)
+        {
+            graph[math.second].insert(math.first);
+        }
+        return graph;
+    }
+    vector<int> computu_indegree(vector<unordered_set<int>>& graph)
+    {
+        vector<int> degrees(graph.size(),0);
+        for(int i=0;i<graph.size();++i)
+        {
+            for(int m:graph[i])
+                degrees[m]++;
+        }
+        return degrees;
+    }
+};
