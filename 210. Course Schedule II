@@ -49,3 +49,43 @@ private:
         return degrees;
     }
 };
+
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<unordered_set<int>> graph=make_graph(numCourses,prerequisites);
+        vector<bool> visited(numCourses,false);
+        vector<bool> onpath(numCourses,false);
+        vector<int> res;
+        for(int i=0;i<numCourses;++i)
+        {
+            if(!visited[i]&& dfs(graph,i,onpath,visited,res))
+                return {};
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+private:
+    vector<unordered_set<int>> make_graph(int numCourses, vector<pair<int, int>>& prerequisites)
+    {
+        vector<unordered_set<int>> graph(numCourses);
+        for(auto tmp:prerequisites)
+            graph[tmp.second].insert(tmp.first);
+        return graph;
+    }
+    bool dfs(vector<unordered_set<int>>& graph, int i, vector<bool>& onpath, vector<bool>& visited, vector<int>& res)
+    {
+        if(visited[i])
+            return false;
+        visited[i]=true;
+        onpath[i]=true;
+        for(int neigh:graph[i])
+        {
+            if(onpath[neigh]||dfs(graph,neigh,onpath,visited,res))
+                return true;
+        }
+        res.push_back(i);
+        return onpath[i]=false;
+    }
+};
+
