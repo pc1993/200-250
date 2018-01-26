@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        if(n<2)
+            return n?nums[0]:0;
+        return max(findmax(nums,0,n-1),findmax(nums,1,n));
+    }
+private:
+    int findmax(vector<int>& nums,int start,int end)
+    {
+        int last=0;
+        int pre=0;
+        int sum=0;
+        for(int i=start;i<end;++i)
+        {
+            sum=max(pre+nums[i],last);
+            pre=last;
+            last=sum;
+        }
+        return sum;
+    }
+};
