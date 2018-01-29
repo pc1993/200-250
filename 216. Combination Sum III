@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> path;
+        vector<vector<int>> result;
+        findoutput(path,result,k,n);
+        return result;
+    }
+private:
+    void findoutput(vector<int>& path,vector<vector<int>>& result,int k,int n)
+    {
+        if(path.size()==k&&n==0)
+        {
+            result.push_back(path);
+            return;
+        }
+        if(path.size()<k)
+        {
+            for(int i=path.empty()?1:path.back()+1;i<=9;++i)
+            {
+                if(n-i<0)
+                    break;
+                path.push_back(i);
+                findoutput(path,result,k,n-i);
+                path.pop_back();
+            }
+        }
+    }
+};
