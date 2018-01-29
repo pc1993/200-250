@@ -4,6 +4,7 @@ BM(Boyer Moore)算法，移动匹配了的x位，比较m-x位是否匹配，若�
 Sunday算法的核心思想就是失配时，模式串能尽可能多的向后移动，使得匹配次数减少，效率提高
 KPM算法，每次移动位位置，是不匹配位置的j-next【j】（当前位置，最大前缀后缀相同的字符串长度）
 
+https://leetcode.com/problems/shortest-palindrome/discuss/60113
 class Solution {
 public:
     string shortestPalindrome(string s) {
