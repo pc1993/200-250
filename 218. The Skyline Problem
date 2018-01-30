@@ -3,6 +3,7 @@ multimap允许图中存在重复元素
 _bakc emplace _front与push_back insert push_front很相似,唯一的好处是，不需要进行构建新的元素，节约空间
 rbegin   返回一个逆序迭代器，它指向容器c的最后一个元素
 rend     返回一个逆序迭代器，它指向容器c的第一个元素前面的位置
+排序，只保留左节点，右节点高度为负
 class Solution {
 public:
     vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
