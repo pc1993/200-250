@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int res=(C-A)*(D-B)+(G-E)*(H-F);
+        if(C<=E||A>=G||B>=H||F>=D)
+            return res;
+        else
+        {
+            vector<int> p1;
+            p1.push_back(A);
+            p1.push_back(C);
+            p1.push_back(E);
+            p1.push_back(G);
+            vector<int> p2;
+            p2.push_back(B);
+            p2.push_back(D);
+            p2.push_back(F);
+            p2.push_back(H);
+            sort(p1.begin(),p1.end());
+            sort(p2.begin(),p2.end());
+            res=res-(p1[2]-p1[1])*(p2[2]-p2[1]);
+            return res;
+        }
+    }
+};
+
+
+
+int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) 
+    {
+        int temp,total = (C-A) * (D-B) + (G-E) * (H-F);
+        if (C<=E || A>=G || B>=H || D<=F )
+            return total;
+        else
+        {
+            if(A>C)
+            {
+                temp=A;
+                A=C;
+                C=temp;
+            }
+            if(E>G)
+            {
+                temp=E;
+                E=G;
+                G=temp;
+            }
+            if(B>D)
+            {
+                temp=B;
+                B=D;
+                D=temp;
+            }
+            if(F>H)
+            {
+                temp=F;
+                F=H;
+                H=temp;
+            }
+            total = total - ( min(C,G) - max(A,E))*(min(D,H)- max(B,F));
+            return total;
+        }
+    }
