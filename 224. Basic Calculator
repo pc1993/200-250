@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int calculate(string s) {
+        stack<int> nums;
+        stack<int> sig;
+        int res=0;
+        int sign=1;
+        for(int i=0;i<s.size();++i)
+        {
+            if(s[i]>='0')
+            {
+                int num=0;
+                while(i<s.size()&&s[i]>='0')
+                    num=num*10+s[i++]-'0';
+                res+=sign*num;
+                i--;
+            }
+            else
+            {
+                if(s[i]=='+')
+                    sign=1;
+                if(s[i]=='-')
+                    sign=-1;
+                if(s[i]=='(')
+                {
+                    nums.push(res);
+                    sig.push(sign);
+                    res=0;
+                    sign=1;
+                }
+                if(s[i]==')')
+                {
+                    res=sig.top()*res+nums.top();
+                    sig.pop();
+                    nums.pop();
+                }
+            }
+        }
+        return res;
+    }
+};
