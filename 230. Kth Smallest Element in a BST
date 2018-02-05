@@ -1,0 +1,46 @@
+中序遍历会得到有序的排序，只要找到第k个元素就可以了
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        return findtree(root,k);
+    }
+private:
+    int findtree(TreeNode* root,int& k)
+    {
+        if(root==NULL)
+            return -1;
+        int val=findtree(root->left,k);
+        if(!k)
+            return val;
+        if(!--k)
+            return root->val;
+        return findtree(root->right,k);
+    }
+};
+
+
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int cnt = count(root->left);
+        if (k <= cnt) {
+            return kthSmallest(root->left, k);
+        } else if (k > cnt + 1) {
+            return kthSmallest(root->right, k - cnt - 1);
+        }
+        return root->val;
+    }
+    int count(TreeNode* node) {
+        if (!node) return 0;
+        return 1 + count(node->left) + count(node->right);
+    }
+};
