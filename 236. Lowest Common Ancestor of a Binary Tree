@@ -1,0 +1,29 @@
+二叉搜索树，二叉排序树：
+二叉排序树或者是一棵空树，或者是具有下列性质的二叉树：
+（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；
+（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；
+（3）左、右子树也分别为二叉排序树；
+平衡二叉树（Self-balancing binary search tree）又被称为AVL树（有别于AVL算法），且具有以下性质：
+它是一 棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树，同时，平衡二叉树必定是二叉搜索树
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(q==root||p==root||root==NULL)
+            return root;
+        TreeNode* left=lowestCommonAncestor(root->left,p,q);
+        TreeNode* right=lowestCommonAncestor(root->right,p,q);
+        if(left!=NULL&&right!=NULL)
+            return root;
+        return right==NULL?left:right;
+    }
+};
