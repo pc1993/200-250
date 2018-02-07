@@ -1,0 +1,74 @@
+Class std::string (correspondingly std::basic_string) has assignment operator
+
+basic_string& operator=(charT c);
+and this assignment operator is used in this code snippet
+
+string convert(string name)
+{
+  string code;
+  code = name[0]; // using of the assignment operator
+  ...
+}
+However the class does not has an appropriate constructor that you could write
+
+string code = name[0];
+You can write either like
+
+string code = { 1, name[0] };
+or like
+
+string code( 1, name[0] );
+or string s=name.substr(1);
+using constructor
+
+basic_string(size_type n, charT c, const Allocator& a = Allocator());
+https://stackoverflow.com/questions/30257526/no-viable-conversion-from-value-type-aka-char-to-string-aka-basic-stri
+
+
+class Solution {
+public:
+    vector<int> diffWaysToCompute(string input) {
+        unordered_map<string,vector<int>> my_map;
+        return dpsolve(input,my_map);
+    }
+private:
+    vector<int> dpsolve(string input,unordered_map<string,vector<int>>& my_map)
+    {
+        vector<int> res;
+        for(int i=0;i<input.size();++i)
+        {
+            char s1=input[i];
+            if(s1=='+'||s1=='-'||s1=='*')
+            {
+                vector<int> left;
+                vector<int> right;
+                string s2=input.substr(0,i);
+                if(my_map.find(s2)!=my_map.end())
+                    left=my_map[s2];
+                else
+                    left=dpsolve(s2,my_map);
+                s2=input.substr(i+1);
+                if(my_map.find(s2)!=my_map.end())
+                    right=my_map[s2];
+                else
+                    right=dpsolve(s2,my_map);
+                for(auto l:left)
+                {
+                    for(auto r:right)
+                    {
+                        if(s1=='+')
+                            res.push_back(l+r);
+                        else if(s1=='-')
+                            res.push_back(l-r);
+                        else
+                            res.push_back(l*r);
+                    }
+                }
+            }
+        }
+        if(res.empty())
+            res.push_back(atoi(input.c_str()));
+        my_map[input]=res;
+        return res;
+    }
+};
