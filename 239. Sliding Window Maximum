@@ -1,0 +1,20 @@
+multiset   自动排序，可拥有重复元素的set
+deque 头尾双进双出
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> res;
+        deque<int> tmp;
+        for(int i=0;i<nums.size();++i)
+        {
+            while(!tmp.empty()&&nums[i]>=nums[tmp.back()])
+                tmp.pop_back();
+            tmp.push_back(i);
+            if(i>=k-1)
+                res.push_back(nums[tmp.front()]);
+            if(tmp.front()<=i-k+1)
+                tmp.pop_front();
+        }
+        return res;
+    }
+};
